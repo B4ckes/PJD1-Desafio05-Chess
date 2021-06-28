@@ -22,8 +22,8 @@ public class BasePiece
     protected string whitePieceName;
     protected string blackPieceName;
 
-    public int currentX { get; set; }
-    public int currentY { get; set; }
+    public int currentX;
+    public int currentY;
 
     Sprite sprite;
 
@@ -41,6 +41,11 @@ public class BasePiece
 
     public virtual void onPieceSelected(GameObject[,] board, bool shouldHighlight) {
         // No action on base piece
+    }
+
+    public virtual void setCurrentPosition(int x, int y) {
+        this.currentX = x;
+        this.currentY = y;
     }
 
     protected void setSpritePath() {

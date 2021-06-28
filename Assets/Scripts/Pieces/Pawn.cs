@@ -2,7 +2,7 @@
 
 public class Pawn : BasePiece
 {
-    private bool isFirstMovement;
+    public bool isFirstMovement { private get; set;}
     private const int MIN_INDEX = 0;
     private const int MAX_INDEX = 7;
 
@@ -20,6 +20,12 @@ public class Pawn : BasePiece
         this.highlightCurrentSpace(board, shouldHighlight);
         this.highlightMovementSpaces(board, shouldHighlight);
         this.highlightAttackSpace(board, shouldHighlight);
+    }
+
+    public override void setCurrentPosition(int x, int y) {
+        this.currentX = x;
+        this.currentY = y;
+        this.isFirstMovement = false;
     }
 
     void highlightCurrentSpace(GameObject[,] board, bool shouldHighlight) {
