@@ -20,8 +20,10 @@ public class GameController : MonoBehaviour
 
     public BasePiece selectedPiece;
     
-    BasePiece[] initialPieces = new BasePiece[16]
+    BasePiece[] initialPieces = new BasePiece[21]
     {
+        new Tower(false, 0, 0),
+        new Tower(false, 7, 0),
         new Pawn(false, 0, 1),
         new Pawn(false, 1, 1),
         new Pawn(false, 2, 1),
@@ -30,6 +32,9 @@ public class GameController : MonoBehaviour
         new Pawn(false, 5, 1),
         new Pawn(false, 6, 1),
         new Pawn(false, 7, 1),
+        new Tower(true, 0, 7),
+        new Tower(true, 7, 7),
+        new Tower(true, 4, 4),
         new Pawn(true, 0, 6),
         new Pawn(true, 1, 6),
         new Pawn(true, 2, 6),

@@ -1,10 +1,7 @@
 ﻿using UnityEngine;
 
-public class Pawn : BasePiece
-{
+public class Pawn : BasePiece {
     public bool isFirstMovement { private get; set;}
-    private const int MIN_INDEX = 0;
-    private const int MAX_INDEX = 7;
 
     public Pawn(bool isWhitePiece, int initialX, int initialY) : base(isWhitePiece, initialX, initialY) {
         this.whitePieceName = "WhitePawn";
@@ -26,12 +23,6 @@ public class Pawn : BasePiece
         this.currentX = x;
         this.currentY = y;
         this.isFirstMovement = false;
-    }
-
-    void highlightCurrentSpace(GameObject[,] board, bool shouldHighlight) {
-        BoardSpaceController placeToHighlight = board[this.currentX, this.currentY].GetComponent<BoardSpaceController>();
-
-        placeToHighlight.setCurrent(shouldHighlight);
     }
 
     void highlightMovementSpaces(GameObject[,] board, bool shouldHighlight) {
@@ -79,9 +70,5 @@ public class Pawn : BasePiece
 
             placeToHighlight.setAttack(canAttack);
         }
-    }
-
-    bool hasPieceOnPath(BoardSpaceController space) {
-        return space.currentPiece.type != PieceType.None;
     }
 }
