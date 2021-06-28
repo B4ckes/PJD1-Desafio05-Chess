@@ -3,19 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEditor;
-using UnityEngine.Events;
-using UnityEngine.EventSystems;
 
-public class BoardSpaceController : MonoBehaviour, IPointerDownHandler
+public class BoardSpaceController : MonoBehaviour
 {
     public Image selectedBorder;
     public Image canMoveBorder;
     public Image currentPieceSprite;
     public BasePiece currentPiece;
 
-    public void OnPointerDown(PointerEventData eventData) {
-        Debug.Log("Teste");
-        this.selectedBorder.gameObject.SetActive(true);
+    GameObject[,] board;
+
+    void Awake()
+    {
+        this.currentPiece = new BasePiece(false, 0, 0);
+        this.board = GameController.FindObjectOfType<GameController>().board;
+    }
+
+    public void setSelected() {
+        if (this.currentPiece.type != PieceType.None) {
+            this.selectedBorder.gameObject.SetActive(true);
+            this.currentPiece.highlightMovementPieces(this.board);
+        }
     }
 
     public void activeHighlight() {
@@ -26,7 +34,7 @@ public class BoardSpaceController : MonoBehaviour, IPointerDownHandler
 
     void Update()
     {
-        if (this.currentPiece != null) {
+        if (this.currentPiece.type != PieceType.None) {
             this.currentPieceSprite.gameObject.GetComponent<Image>().sprite = AssetDatabase.LoadAssetAtPath<Sprite>(this.currentPiece.pieceSpritePath);
             this.currentPieceSprite.gameObject.SetActive(true);
         } else {

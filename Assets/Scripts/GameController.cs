@@ -11,6 +11,8 @@ public class GameController : MonoBehaviour
     float spaceSize = 62.5f;
     float centeringValue = 0.5f;
     Canvas canvas;
+
+    public BasePiece selectedPiece;
     
     BasePiece[] initialPieces = new BasePiece[16]
     {
@@ -65,5 +67,9 @@ public class GameController : MonoBehaviour
         foreach (BasePiece piece in initialPieces) {
             this.board[piece.currentX, piece.currentY].GetComponent<BoardSpaceController>().currentPiece = piece;
         }
+    }
+
+    void setSelectedPiece(BasePiece piece) {
+        this.selectedPiece = piece;
     }
 }
