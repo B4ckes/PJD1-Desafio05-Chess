@@ -3,10 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum Turn {
+    White,
+    Black,
+}
+
 public class GameController : MonoBehaviour
 {
     public GameObject BoardSpacePrefab;
     public GameObject[,] board { get; private set; } = new GameObject[8, 8];
+    public Turn currentTurn;
 
     float spaceSize = 62.5f;
     float centeringValue = 0.5f;
@@ -39,6 +45,7 @@ public class GameController : MonoBehaviour
     void Awake() {
         this.canvas = GameObject.FindObjectOfType<Canvas>();
         this.selectedPiece = new BasePiece(false, 0, 0);
+        this.currentTurn = Turn.White;
 
         this.createBoard();
         this.placeInitialPieces();
@@ -73,10 +80,7 @@ public class GameController : MonoBehaviour
     }
 
     public void setSelectedPiece(BasePiece piece) {
-        if (this.selectedPiece.type != PieceType.None) {
-            this.selectedPiece.onPieceSelected(this.board, false);
-        }
-
+        this.selectedPiece.onPieceSelected(this.board, false);
         this.selectedPiece = piece;
     }
 }

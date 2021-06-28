@@ -25,10 +25,12 @@ public class BoardSpaceController : MonoBehaviour
     public void setSelected() {
         this.gameController.setSelectedPiece(this.currentPiece);
 
-        bool shouldSelect = !this.selectedBorder.gameObject.activeSelf;
+        if (gameController.currentTurn == this.currentPiece.turn) {
+            bool shouldSelect = !this.selectedBorder.gameObject.activeSelf;
 
-        if (this.currentPiece.type != PieceType.None) {
-            this.currentPiece.onPieceSelected(this.board, shouldSelect);
+            if (this.currentPiece.type != PieceType.None) {
+                this.currentPiece.onPieceSelected(this.board, shouldSelect);
+            }
         }
     }
 
