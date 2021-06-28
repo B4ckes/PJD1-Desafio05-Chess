@@ -38,8 +38,8 @@ public class Pawn : BasePiece
         int amountToMove = this.isFirstMovement ? 2 : 1;
 
         for (int i = 0; i < amountToMove; i++) {
-            int movementIndex = this.isWhitePiece ? this.currentY + (i + 1) : this.currentY - (i + 1);
-            bool shouldHighlightSpace = this.isWhitePiece ? movementIndex <= MAX_INDEX : movementIndex >= MIN_INDEX;
+            int movementIndex = this.isWhitePiece ? this.currentY - (i + 1) : this.currentY + (i + 1);
+            bool shouldHighlightSpace = this.isWhitePiece ? movementIndex >= MIN_INDEX : movementIndex <= MAX_INDEX;
 
             if (shouldHighlightSpace) {
                 BoardSpaceController placeToHighlight = board[this.currentX, movementIndex].GetComponent<BoardSpaceController>();
@@ -54,7 +54,7 @@ public class Pawn : BasePiece
     }
 
     void highlightAttackSpace(GameObject[,] board, bool shouldHighlight) {
-        int attackYIndex = this.isWhitePiece ? this.currentY + 1 : this.currentY - 1;
+        int attackYIndex = this.isWhitePiece ? this.currentY - 1 : this.currentY + 1;
         int leftAttackXIndex = this.currentX - 1;
         int rightAttackXIndex = this.currentX + 1;
 

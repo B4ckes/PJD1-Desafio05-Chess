@@ -1,9 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
-public enum Turn {
+public enum PlayerColor {
+    None,
     White,
     Black,
 }
@@ -12,7 +11,8 @@ public class GameController : MonoBehaviour
 {
     public GameObject BoardSpacePrefab;
     public GameObject[,] board { get; private set; } = new GameObject[8, 8];
-    public Turn currentTurn;
+    public PlayerColor currentTurn;
+    public PlayerColor winner;
 
     float spaceSize = 62.5f;
     float centeringValue = 0.5f;
@@ -22,28 +22,29 @@ public class GameController : MonoBehaviour
     
     BasePiece[] initialPieces = new BasePiece[16]
     {
-        new Pawn(true, 0, 1),
-        new Pawn(true, 1, 1),
-        new Pawn(true, 2, 1),
-        new Pawn(true, 3, 1),
-        new Pawn(true, 4, 1),
-        new Pawn(true, 5, 1),
-        new Pawn(true, 6, 1),
-        new Pawn(true, 7, 1),
-        new Pawn(false, 0, 6),
-        new Pawn(false, 1, 6),
-        new Pawn(false, 2, 6),
-        new Pawn(false, 3, 6),
-        new Pawn(false, 4, 6),
-        new Pawn(false, 5, 6),
-        new Pawn(false, 6, 6),
-        new Pawn(false, 7, 6),
+        new Pawn(false, 0, 1),
+        new Pawn(false, 1, 1),
+        new Pawn(false, 2, 1),
+        new Pawn(false, 3, 1),
+        new Pawn(false, 4, 1),
+        new Pawn(false, 5, 1),
+        new Pawn(false, 6, 1),
+        new Pawn(false, 7, 1),
+        new Pawn(true, 0, 6),
+        new Pawn(true, 1, 6),
+        new Pawn(true, 2, 6),
+        new Pawn(true, 3, 6),
+        new Pawn(true, 4, 6),
+        new Pawn(true, 5, 6),
+        new Pawn(true, 6, 6),
+        new Pawn(true, 7, 6),
     };
 
     void Awake() {
         this.canvas = GameObject.FindObjectOfType<Canvas>();
         this.selectedPiece = new BasePiece(false, 0, 0);
-        this.currentTurn = Turn.White;
+        this.currentTurn = PlayerColor.White;
+        this.winner = PlayerColor.None;
 
         this.createBoard();
         this.placeInitialPieces();

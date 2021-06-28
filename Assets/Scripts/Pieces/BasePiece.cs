@@ -17,7 +17,7 @@ public class BasePiece
     public string pieceSpritePath;
     public PieceType type;
     public bool isWhitePiece;
-    public Turn turn;
+    public PlayerColor playerColor;
 
     protected string whitePieceName;
     protected string blackPieceName;
@@ -31,7 +31,7 @@ public class BasePiece
         this.whitePieceName = "";
         this.blackPieceName = "";
         this.isWhitePiece = isWhitePiece;
-        this.turn = isWhitePiece ? Turn.White : Turn.Black;
+        this.playerColor = isWhitePiece ? PlayerColor.White : PlayerColor.Black;
         this.currentX = initialX;
         this.currentY = initialY;
         this.type = PieceType.None;
