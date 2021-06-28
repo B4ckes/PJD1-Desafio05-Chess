@@ -14,7 +14,7 @@ public class GameController : MonoBehaviour
 
     public BasePiece selectedPiece;
     
-    BasePiece[] initialPieces = new BasePiece[20]
+    BasePiece[] initialPieces = new BasePiece[18]
     {
         new Pawn(true, 0, 1),
         new Pawn(true, 1, 1),
@@ -22,24 +22,23 @@ public class GameController : MonoBehaviour
         new Pawn(true, 3, 1),
         new Pawn(true, 4, 1),
         new Pawn(true, 5, 1),
+        new Pawn(false, 5, 2),
         new Pawn(true, 6, 1),
         new Pawn(true, 7, 1),
-        new Pawn(false, 7, 2),
-        new Pawn(false, 0, 0),
         new Pawn(false, 0, 6),
         new Pawn(false, 1, 6),
         new Pawn(false, 2, 6),
         new Pawn(false, 3, 6),
         new Pawn(false, 4, 6),
         new Pawn(false, 5, 6),
+        new Pawn(true, 5, 5),
         new Pawn(false, 6, 6),
-        new Pawn(false, 6, 5),
         new Pawn(false, 7, 6),
-        new Pawn(true, 7, 7),
     };
 
     void Awake() {
         this.canvas = GameObject.FindObjectOfType<Canvas>();
+        this.selectedPiece = new BasePiece(false, 0, 0);
 
         this.createBoard();
         this.placeInitialPieces();
@@ -73,7 +72,11 @@ public class GameController : MonoBehaviour
         }
     }
 
-    void setSelectedPiece(BasePiece piece) {
+    public void setSelectedPiece(BasePiece piece) {
+        if (this.selectedPiece.type != PieceType.None) {
+            this.selectedPiece.onPieceSelected(this.board, false);
+        }
+
         this.selectedPiece = piece;
     }
 }
