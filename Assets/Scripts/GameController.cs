@@ -14,7 +14,7 @@ public class GameController : MonoBehaviour
 
     public BasePiece selectedPiece;
     
-    BasePiece[] initialPieces = new BasePiece[16]
+    BasePiece[] initialPieces = new BasePiece[20]
     {
         new Pawn(true, 0, 1),
         new Pawn(true, 1, 1),
@@ -24,6 +24,8 @@ public class GameController : MonoBehaviour
         new Pawn(true, 5, 1),
         new Pawn(true, 6, 1),
         new Pawn(true, 7, 1),
+        new Pawn(false, 7, 2),
+        new Pawn(false, 0, 0),
         new Pawn(false, 0, 6),
         new Pawn(false, 1, 6),
         new Pawn(false, 2, 6),
@@ -31,7 +33,9 @@ public class GameController : MonoBehaviour
         new Pawn(false, 4, 6),
         new Pawn(false, 5, 6),
         new Pawn(false, 6, 6),
+        new Pawn(false, 6, 5),
         new Pawn(false, 7, 6),
+        new Pawn(true, 7, 7),
     };
 
     void Awake() {

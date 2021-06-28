@@ -16,8 +16,8 @@ public class BasePiece
 {
     public string pieceSpritePath;
     public PieceType type;
+    public bool isWhitePiece;
 
-    protected bool isWhitePiece;
     protected string whitePieceName;
     protected string blackPieceName;
 
@@ -37,7 +37,7 @@ public class BasePiece
         this.setSpritePath();
     }
 
-    public virtual void highlightMovementPieces(GameObject[,] board) {
+    public virtual void onPieceSelected(GameObject[,] board, bool shouldHighlight) {
         // No action on base piece
     }
 

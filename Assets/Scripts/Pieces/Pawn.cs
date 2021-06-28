@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEditor;
+﻿using UnityEngine;
 
 public class Pawn : BasePiece
 {
@@ -18,23 +14,32 @@ public class Pawn : BasePiece
         this.setSpritePath();
     }
 
-    public override void highlightMovementPieces(GameObject[,] board) {
-        int amountToMove = this.isFirstMovement ? 2 : 1;
+    public override void onPieceSelected(GameObject[,] board, bool shouldHighlight) {
+        this.highlightMovementSpaces(board, shouldHighlight);
+    }
 
-        if (board != null) {
-            if (this.isWhitePiece) {
-                for (int i = 0; i < amountToMove; i++) {
-                    GameObject placeToHighlight = board[this.currentX, this.currentY + (i + 1)];
-                    placeToHighlight.GetComponent<BoardSpaceController>().activeHighlight();
+    void highlightMovementSpaces(GameObject[,] board, bool shouldHighlight) {
+        int amountToMove = this.isFirstMovement ? 2 : 1;
+        int minIndex = 0;
+        int maxIndex = 7;
+
+        for (int i = 0; i < amountToMove; i++) {
+            int movementIndex = this.isWhitePiece ? this.currentY + (i + 1) : this.currentY - (i + 1);
+            bool shouldHighlightSpace = this.isWhitePiece ? movementIndex <= maxIndex : movementIndex >= minIndex;
+
+            if (shouldHighlightSpace) {
+                BoardSpaceController placeToHighlight = board[this.currentX, movementIndex].GetComponent<BoardSpaceController>();
+
+                if (this.hasPieceOnPath(placeToHighlight)) {
+                    break;
                 }
 
-                return;
-            }
-
-            for (int i = 0; i < amountToMove; i++) {
-                GameObject placeToHighlight = board[this.currentX, this.currentY - (i + 1)];
-                placeToHighlight.GetComponent<BoardSpaceController>().activeHighlight();
+                placeToHighlight.setHighlight(shouldHighlight);
             }
         }
+    }
+
+    bool hasPieceOnPath(BoardSpaceController space) {
+        return space.currentPiece.type != PieceType.None;
     }
 }

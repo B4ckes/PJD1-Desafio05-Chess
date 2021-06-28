@@ -20,15 +20,17 @@ public class BoardSpaceController : MonoBehaviour
     }
 
     public void setSelected() {
+        bool shouldSelect = !this.selectedBorder.gameObject.activeSelf;
+
         if (this.currentPiece.type != PieceType.None) {
-            this.selectedBorder.gameObject.SetActive(true);
-            this.currentPiece.highlightMovementPieces(this.board);
+            this.selectedBorder.gameObject.SetActive(shouldSelect);
+            this.currentPiece.onPieceSelected(this.board, shouldSelect);
         }
     }
 
-    public void activeHighlight() {
+    public void setHighlight(bool value) {
         if (this.canMoveBorder != null) {
-            this.canMoveBorder.gameObject.SetActive(true);
+            this.canMoveBorder.gameObject.SetActive(value);
         }
     }
 
