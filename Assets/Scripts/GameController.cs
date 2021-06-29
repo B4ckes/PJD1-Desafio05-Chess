@@ -13,6 +13,8 @@ public class GameController : MonoBehaviour
     public GameObject[,] board { get; private set; } = new GameObject[8, 8];
     public PlayerColor currentTurn;
     public PlayerColor winner;
+    public GameObject winnerUI;
+    public Text winnerText;
 
     float spaceSize = 62.5f;
     float centeringValue = 0.5f;
@@ -61,11 +63,24 @@ public class GameController : MonoBehaviour
     void Awake() {
         this.canvas = GameObject.FindObjectOfType<Canvas>();
         this.selectedPiece = new BasePiece(false, 0, 0);
-        this.currentTurn = PlayerColor.White;
+        this.currentTurn = PlayerColor.Black;
         this.winner = PlayerColor.None;
 
         this.createBoard();
         this.placeInitialPieces();
+    }
+
+    void Update()
+    {
+        if (this.winnerUI != null && this.winner != PlayerColor.None) {
+            this.winnerUI.SetActive(true);
+
+            if (this.winner == PlayerColor.Black) {
+                this.winnerText.text = this.winnerText.text.Replace("{0}", "pretas");
+            } else if (this.winner == PlayerColor.White) {
+                this.winnerText.text = this.winnerText.text.Replace("{0}", "brancas");
+            }
+        }
     }
 
     void createBoard() {
