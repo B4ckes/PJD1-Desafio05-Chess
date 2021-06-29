@@ -65,7 +65,7 @@ public class BasePiece
     }
 
     protected void highlightAround(GameObject[,] board, bool shouldHighlight) {
-        //
+        BoardSpaceController placeToHighlight = board[this.currentX - 1, this.currentY - 1].GetComponent<BoardSpaceController>();
     }
 
     protected void highlightHorizontals(GameObject[,] board, bool shouldHighlight) {
@@ -76,6 +76,7 @@ public class BasePiece
 
         for (int i = firstLeftX; i >= 0; i--) {
             BoardSpaceController placeToHighlight = board[i, this.currentY].GetComponent<BoardSpaceController>();
+
             if (this.hasOwnPieceOnPath(placeToHighlight)) {
                 break;
             } else if (this.hasEnemyPieceOnPath(placeToHighlight)) {
@@ -88,6 +89,7 @@ public class BasePiece
 
         for (int i = firstRightX; i <= 7; i++) {
             BoardSpaceController placeToHighlight = board[i, this.currentY].GetComponent<BoardSpaceController>();
+
             if (this.hasOwnPieceOnPath(placeToHighlight)) {
                 break;
             } else if (this.hasEnemyPieceOnPath(placeToHighlight)) {
@@ -100,6 +102,7 @@ public class BasePiece
 
         for (int i = firstTopY; i >= 0; i--) {
             BoardSpaceController placeToHighlight = board[this.currentX, i].GetComponent<BoardSpaceController>();
+
             if (this.hasOwnPieceOnPath(placeToHighlight)) {
                 break;
             } else if (this.hasEnemyPieceOnPath(placeToHighlight)) {
@@ -112,6 +115,7 @@ public class BasePiece
 
         for (int i = firstBottomY; i <= 7; i++) {
             BoardSpaceController placeToHighlight = board[this.currentX, i].GetComponent<BoardSpaceController>();
+
             if (this.hasOwnPieceOnPath(placeToHighlight)) {
                 break;
             } else if (this.hasEnemyPieceOnPath(placeToHighlight)) {
@@ -124,7 +128,85 @@ public class BasePiece
     }
 
     protected void highlightDiagonals(GameObject[,] board, bool shouldHighlight) {
-        //
+        for (int i = 1; i <= 8; i++) {
+            bool isIndexInsideBoard = this.currentX - i >= MIN_INDEX &&
+            this.currentX - i <= MAX_INDEX &&
+            this.currentY - i >= MIN_INDEX &&
+            this.currentY - i <= MAX_INDEX;
+
+            if (isIndexInsideBoard) {
+                BoardSpaceController placeToHighlight = board[this.currentX - i, this.currentY - i].GetComponent<BoardSpaceController>();
+
+                if (this.hasOwnPieceOnPath(placeToHighlight)) {
+                    break;
+                } else if (this.hasEnemyPieceOnPath(placeToHighlight)) {
+                    placeToHighlight.setAttack(shouldHighlight);
+                    break;
+                }
+
+                placeToHighlight.setHighlight(shouldHighlight);
+            }
+        }
+
+        for (int i = 1; i <= 8; i++) {
+            bool isIndexInsideBoard = this.currentX + i >= MIN_INDEX &&
+            this.currentX + i <= MAX_INDEX &&
+            this.currentY - i >= MIN_INDEX &&
+            this.currentY - i <= MAX_INDEX;
+
+            if (isIndexInsideBoard) {
+                BoardSpaceController placeToHighlight = board[this.currentX + i, this.currentY - i].GetComponent<BoardSpaceController>();
+
+                if (this.hasOwnPieceOnPath(placeToHighlight)) {
+                    break;
+                } else if (this.hasEnemyPieceOnPath(placeToHighlight)) {
+                    placeToHighlight.setAttack(shouldHighlight);
+                    break;
+                }
+
+                placeToHighlight.setHighlight(shouldHighlight);
+            }
+        }
+
+        for (int i = 1; i <= 8; i++) {
+            bool isIndexInsideBoard = this.currentX - i >= MIN_INDEX &&
+            this.currentX - i <= MAX_INDEX &&
+            this.currentY + i >= MIN_INDEX &&
+            this.currentY + i <= MAX_INDEX;
+
+            if (isIndexInsideBoard) {
+                BoardSpaceController placeToHighlight = board[this.currentX - i, this.currentY + i].GetComponent<BoardSpaceController>();
+
+                if (this.hasOwnPieceOnPath(placeToHighlight)) {
+                    break;
+                } else if (this.hasEnemyPieceOnPath(placeToHighlight)) {
+                    placeToHighlight.setAttack(shouldHighlight);
+                    break;
+                }
+
+                placeToHighlight.setHighlight(shouldHighlight);
+            }
+        }
+
+        for (int i = 1; i <= 8; i++) {
+            bool isIndexInsideBoard = this.currentX + i >= MIN_INDEX &&
+            this.currentX + i <= MAX_INDEX &&
+            this.currentY + i >= MIN_INDEX &&
+            this.currentY + i <= MAX_INDEX;
+
+            if (isIndexInsideBoard) {
+                BoardSpaceController placeToHighlight = board[this.currentX + i, this.currentY + i].GetComponent<BoardSpaceController>();
+
+                if (this.hasOwnPieceOnPath(placeToHighlight)) {
+                    break;
+                } else if (this.hasEnemyPieceOnPath(placeToHighlight)) {
+                    placeToHighlight.setAttack(shouldHighlight);
+                    break;
+                }
+
+                placeToHighlight.setHighlight(shouldHighlight);
+            }
+        }
     }
 
     protected bool hasPieceOnPath(BoardSpaceController space) {
