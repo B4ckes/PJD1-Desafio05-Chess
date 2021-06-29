@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using UnityEditor;
 
 public class BoardSpaceController : MonoBehaviour
 {
@@ -25,7 +24,7 @@ public class BoardSpaceController : MonoBehaviour
     void Update()
     {
         if (this.currentPiece.type != PieceType.None) {
-            this.currentPieceSprite.gameObject.GetComponent<Image>().sprite = AssetDatabase.LoadAssetAtPath<Sprite>(this.currentPiece.pieceSpritePath);
+            this.currentPieceSprite.gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>(this.currentPiece.pieceSpritePath);
             this.currentPieceSprite.gameObject.SetActive(true);
         } else {
             this.currentPieceSprite.gameObject.SetActive(false);

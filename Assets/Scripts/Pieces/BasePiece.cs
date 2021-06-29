@@ -59,7 +59,7 @@ public class BasePiece
             spriteName = this.whitePieceName;
         }
     
-        this.pieceSpritePath = "Assets/Sprites/Pieces/" + spriteName + ".png";
+        this.pieceSpritePath = "Pieces/" + spriteName;
     }
 
     protected void highlightCurrentSpace(GameObject[,] board, bool shouldHighlight) {
