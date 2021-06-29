@@ -275,7 +275,7 @@ public class BasePiece
         return this.hasPieceOnPath(space) && space.currentPiece.playerColor == this.playerColor;
     }
 
-    bool hasEnemyPieceOnPath(BoardSpaceController space) {
+    protected bool hasEnemyPieceOnPath(BoardSpaceController space) {
         return this.hasPieceOnPath(space) && space.currentPiece.playerColor != this.playerColor;
     }
 }
