@@ -118,7 +118,6 @@ public class BasePiece
         }
 
         foreach (BoardSpaceController place in places) {
-            Debug.Log(place.currentPiece.type);
             if (!this.hasPieceOnPath(place)) {
                 place.setHighlight(shouldHighlight);
             } else if (this.hasEnemyPieceOnPath(place)) {
