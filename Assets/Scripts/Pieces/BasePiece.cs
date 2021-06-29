@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public enum PieceType {
@@ -65,7 +66,65 @@ public class BasePiece
     }
 
     protected void highlightAround(GameObject[,] board, bool shouldHighlight) {
-        BoardSpaceController placeToHighlight = board[this.currentX - 1, this.currentY - 1].GetComponent<BoardSpaceController>();
+        int leftX = this.currentX - 1;
+        int topY = this.currentY - 1;
+        int rightX = this.currentX + 1;
+        int bottomY = this.currentY + 1;
+
+        int topLeftX = this.currentX - 1;
+        int topLeftY = this.currentY - 1;
+
+        int topRightX = this.currentX + 1;
+        int topRightY = this.currentY - 1;
+
+        int bottomRightX = this.currentX + 1;
+        int bottomRightY = this.currentY + 1;
+
+        int bottomLeftX = this.currentX - 1;
+        int bottomLeftY = this.currentY + 1;
+
+        List<BoardSpaceController> places = new List<BoardSpaceController>();
+
+        if (leftX >= MIN_INDEX) {
+            places.Add(board[leftX, this.currentY].GetComponent<BoardSpaceController>());
+        }
+
+        if (topY >= MIN_INDEX) {
+            places.Add(board[this.currentX, topY].GetComponent<BoardSpaceController>());
+        }
+
+        if (rightX <= MAX_INDEX) {
+            places.Add(board[rightX, this.currentY].GetComponent<BoardSpaceController>());
+        }
+
+        if (bottomY <= MAX_INDEX) {
+            places.Add(board[this.currentX, bottomY].GetComponent<BoardSpaceController>());
+        }
+
+        if (topLeftX >= MIN_INDEX && topLeftY >= MIN_INDEX) {
+            places.Add(board[topLeftX, topLeftY].GetComponent<BoardSpaceController>());
+        }
+
+        if (topRightX <= MAX_INDEX && topRightY >= MIN_INDEX) {
+            places.Add(board[topRightX, topRightY].GetComponent<BoardSpaceController>());
+        }
+
+        if (bottomRightX <= MAX_INDEX && bottomRightY <= MAX_INDEX) {
+            places.Add(board[bottomRightX, bottomRightY].GetComponent<BoardSpaceController>());
+        }
+
+        if (bottomLeftX >= MIN_INDEX && bottomLeftY <= MAX_INDEX) {
+            places.Add(board[bottomLeftX, bottomLeftY].GetComponent<BoardSpaceController>());
+        }
+
+        foreach (BoardSpaceController place in places) {
+            Debug.Log(place.currentPiece.type);
+            if (!this.hasPieceOnPath(place)) {
+                place.setHighlight(shouldHighlight);
+            } else if (this.hasEnemyPieceOnPath(place)) {
+                place.setAttack(shouldHighlight);
+            }
+        }
     }
 
     protected void highlightHorizontals(GameObject[,] board, bool shouldHighlight) {
