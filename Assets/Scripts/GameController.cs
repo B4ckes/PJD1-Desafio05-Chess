@@ -119,10 +119,8 @@ public class GameController : MonoBehaviour
 
     public void changeTurn() {
         if (this.currentTurn == PlayerColor.White) {
-            Debug.Log("Change to Black");
             this.currentTurn = PlayerColor.Black;
         } else if (this.currentTurn == PlayerColor.Black) {
-            Debug.Log("Change to White");
             this.currentTurn = PlayerColor.White;
         }
     }
