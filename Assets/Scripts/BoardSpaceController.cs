@@ -41,7 +41,7 @@ public class BoardSpaceController : MonoBehaviour
                 this.movePiece();
                 return;
             } else if (isAttackSpace) {
-                if (this.currentPiece.type == PieceType.Queen) {
+                if (this.currentPiece.type == PieceType.King) {
                     this.gameController.winner = this.gameController.selectedPiece.playerColor;
                 }
 
