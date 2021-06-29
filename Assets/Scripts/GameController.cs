@@ -20,7 +20,7 @@ public class GameController : MonoBehaviour
 
     public BasePiece selectedPiece;
     
-    BasePiece[] initialPieces = new BasePiece[29]
+    BasePiece[] initialPieces = new BasePiece[28]
     {
         // black pieces
         new Tower(false, 0, 0),
@@ -42,7 +42,6 @@ public class GameController : MonoBehaviour
         new Bishop(true, 2, 7),
         new Queen(true, 3, 7),
         new King(true, 4, 7),
-        new King(true, 4, 4),
         new Bishop(true, 5, 7),
         new Tower(true, 7, 7),
         new Pawn(true, 0, 6),
