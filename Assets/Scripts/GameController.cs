@@ -117,6 +117,16 @@ public class GameController : MonoBehaviour
         this.selectedPiece = piece;
     }
 
+    public void changeTurn() {
+        if (this.currentTurn == PlayerColor.White) {
+            Debug.Log("Change to Black");
+            this.currentTurn = PlayerColor.Black;
+        } else if (this.currentTurn == PlayerColor.Black) {
+            Debug.Log("Change to White");
+            this.currentTurn = PlayerColor.White;
+        }
+    }
+
     public void onReset() {
         foreach (GameObject place in this.board) {
             place.GetComponent<BoardSpaceController>().currentPiece = new BasePiece(false, 0, 0);

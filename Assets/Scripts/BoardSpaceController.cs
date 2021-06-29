@@ -48,8 +48,10 @@ public class BoardSpaceController : MonoBehaviour
                 this.movePiece();
                 return;
             }
-
-            this.setSelected();
+            
+            if (this.gameController.currentTurn == this.currentPiece.playerColor) {
+                this.setSelected();
+            }
         }
     }
 
@@ -116,5 +118,7 @@ public class BoardSpaceController : MonoBehaviour
         this.gameController.setSelectedPiece(new BasePiece(false, 0, 0));
         
         this.clearBorders();
+
+        this.gameController.changeTurn();
     }
 }
