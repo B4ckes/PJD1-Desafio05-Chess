@@ -63,7 +63,7 @@ public class GameController : MonoBehaviour
     void Awake() {
         this.canvas = GameObject.FindObjectOfType<Canvas>();
         this.selectedPiece = new BasePiece(false, 0, 0);
-        this.currentTurn = PlayerColor.Black;
+        this.currentTurn = PlayerColor.White;
         this.winner = PlayerColor.None;
 
         this.createBoard();
@@ -107,7 +107,7 @@ public class GameController : MonoBehaviour
     }
 
     void placeInitialPieces() {
-        foreach (BasePiece piece in initialPieces) {
+        foreach (BasePiece piece in this.initialPieces) {
             this.board[piece.currentX, piece.currentY].GetComponent<BoardSpaceController>().currentPiece = piece;
         }
     }
@@ -115,5 +115,23 @@ public class GameController : MonoBehaviour
     public void setSelectedPiece(BasePiece piece) {
         this.selectedPiece.onPieceSelected(this.board, false);
         this.selectedPiece = piece;
+    }
+
+    public void onReset() {
+        foreach (GameObject place in this.board) {
+            place.GetComponent<BoardSpaceController>().currentPiece = new BasePiece(false, 0, 0);
+        }
+
+        foreach (BasePiece piece in this.initialPieces) {
+            piece.resetPosition();
+        }
+
+        this.setSelectedPiece(new BasePiece(false, 0, 0));
+        this.placeInitialPieces();
+
+        this.winner = PlayerColor.None;
+        this.currentTurn = PlayerColor.White;
+        this.winnerText.text = "Peças {0} venceram!";
+        this.winnerUI.SetActive(false);
     }
 }

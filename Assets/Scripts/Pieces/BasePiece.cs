@@ -17,14 +17,15 @@ public class BasePiece
     public PieceType type;
     public bool isWhitePiece;
     public PlayerColor playerColor;
+    public int currentX;
+    public int currentY;
 
     protected const int MIN_INDEX = 0;
     protected const int MAX_INDEX = 7;
     protected string whitePieceName;
     protected string blackPieceName;
-
-    public int currentX;
-    public int currentY;
+    protected int initialX;
+    protected int initialY;
 
     Sprite sprite;
 
@@ -35,6 +36,8 @@ public class BasePiece
         this.playerColor = isWhitePiece ? PlayerColor.White : PlayerColor.Black;
         this.currentX = initialX;
         this.currentY = initialY;
+        this.initialX = initialX;
+        this.initialY = initialY;
         this.type = PieceType.None;
 
         this.setSpritePath();
@@ -277,5 +280,10 @@ public class BasePiece
 
     protected bool hasEnemyPieceOnPath(BoardSpaceController space) {
         return this.hasPieceOnPath(space) && space.currentPiece.playerColor != this.playerColor;
+    }
+
+    public virtual void resetPosition() {
+        this.currentX = this.initialX;
+        this.currentY = this.initialY;
     }
 }

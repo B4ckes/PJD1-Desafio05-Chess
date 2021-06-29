@@ -71,4 +71,10 @@ public class Pawn : BasePiece {
             placeToHighlight.setAttack(canAttack);
         }
     }
+
+    public override void resetPosition() {
+        this.currentX = this.initialX;
+        this.currentY = this.initialY;
+        this.isFirstMovement = true;
+    }
 }
